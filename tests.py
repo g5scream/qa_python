@@ -115,4 +115,13 @@ class TestBooksCollector:
         collector.add_book_in_favorites("Пожизненно")
         assert len(collector.get_list_of_favorites_books()) == 1
 
-        
+
+    def test_delete_book_from_favorites(self, collector):
+        collector.add_new_book("Рокки")
+        collector.add_book_in_favorites("Рокки")
+        collector.delete_book_from_favorites("Рокки")
+        assert "Рокки" not in collector.get_list_of_favorites_books()
+
+    def test_delete_book_from_favorites_book_not_in_favorites(self, collector):
+        collector.delete_book_from_favorites("Нет в избранном")
+        assert "Нет в избранном" not in collector.get_list_of_favorites_books()  
