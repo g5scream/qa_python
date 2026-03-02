@@ -27,7 +27,7 @@ class TestBooksCollector:
         collector.add_new_book(book_name)
         assert len(collector.get_books_genre()) == 1
 
-# Тесты для set_book_genre
+
     def test_set_book_genre_valid_case(self, collector):
         collector.add_new_book("Вархаммер")
         collector.set_book_genre("Вархаммер", "Фантастика")
@@ -40,5 +40,17 @@ class TestBooksCollector:
     def test_set_book_genre_invalid_genre(self, collector):
         collector.add_new_book("Варкрафт")
         collector.set_book_genre("Варкрафт", "Неизвестный жанр")
-        # Жанр не должен установиться, остаётся пустая строка
         assert collector.get_book_genre("Варкрафт") == ""
+
+
+    def test_get_book_genre_existing_book_with_genre(self, collector):
+        collector.add_new_book("Гремлины")
+        collector.set_book_genre("Гремлины", "Ужасы")
+        assert collector.get_book_genre("Гремлины") == "Ужасы"
+
+    def test_get_book_genre_existing_book_without_genre(self, collector):
+        collector.add_new_book("Без жанра")
+        assert collector.get_book_genre("Без жанра") == ""
+
+    def test_get_book_genre_nonexistent_book(self, collector):
+        assert collector.get_book_genre("Нет в коллекции") is None
