@@ -83,3 +83,18 @@ class TestBooksCollector:
             "Аватар": ""
         }
         assert collector.get_books_genre() == expected
+
+
+    def test_get_books_for_children(self, collector):
+        books_data = [
+            ("Пила", "Ужасы"),
+            ("Король Лев", "Мультфильмы"),
+            ("Один Дома", "Комедии"),
+        ]
+        for book, genre in books_data:
+            collector.add_new_book(book)
+            collector.set_book_genre(book, genre)
+        result = collector.get_books_for_children()
+        assert "Король Лев" in result
+        assert "Один Дома" in result
+        assert "Пила" not in result
