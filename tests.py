@@ -124,4 +124,15 @@ class TestBooksCollector:
 
     def test_delete_book_from_favorites_book_not_in_favorites(self, collector):
         collector.delete_book_from_favorites("Нет в избранном")
-        assert "Нет в избранном" not in collector.get_list_of_favorites_books()  
+        assert "Нет в избранном" not in collector.get_list_of_favorites_books()
+
+
+    def test_get_list_of_favorites_books(self, collector):
+        collector.add_new_book("Назад в Будущее")
+        collector.add_new_book("Бесконечная История")
+        collector.add_book_in_favorites("Назад в Будущее")
+        collector.add_book_in_favorites("Бесконечная История")
+        favorites = collector.get_list_of_favorites_books()
+        assert "Назад в Будущее" in favorites
+        assert "Бесконечная История" in favorites
+        assert len(favorites) == 2
