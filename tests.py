@@ -59,14 +59,14 @@ class TestBooksCollector:
         ("Неизвестный жанр", []),
     ])
     def test_get_books_with_specific_genre(self, collector, genre, expected_books):
-        test_data = [
-            ("Грань будущего", "Фантастика"),
-            ("Интерстеллар", "Фантастика"),
-            ("Зубастики", "Ужасы"),
-        ]
-        for book, g in test_data:
-            collector.add_new_book(book)
-            collector.set_book_genre(book, g)
+        books_by_genre = {
+            "Фантастика": ["Грань будущего", "Интерстеллар"],
+            "Ужасы": ["Зубастики"],
+        }
+        for genre_name, books in books_by_genre.items():
+            for book in books:
+                collector.add_new_book(book)
+                collector.set_book_genre(book, genre_name)
         result = collector.get_books_with_specific_genre(genre)
         assert sorted(result) == sorted(expected_books)
 
