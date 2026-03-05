@@ -42,8 +42,9 @@ class TestBooksCollector:
         book_name = "Гремлины"
         genre = "Ужасы"
         collector.add_new_book(book_name)
-        collector.set_book_genre(book_name, genre)
-        assert collector.books_genre[book_name] == genre
+        collector.books_genre[book_name] = genre
+        result = collector.get_book_genre(book_name)
+        assert result == genre
 
     def test_get_book_genre_existing_book_without_genre(self, collector):
         collector.add_new_book("Без жанра")
